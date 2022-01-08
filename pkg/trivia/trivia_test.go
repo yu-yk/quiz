@@ -13,7 +13,7 @@ func TestAPI_GetQuestions(t *testing.T) {
 	// Start a local HTTP server
 	ts := httptest.NewServer(http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
 		// Send response to be tested
-		rw.Write([]byte(sample_Response))
+		rw.Write([]byte(sample_response))
 	}))
 	// Close the server when test finishes
 	defer ts.Close()
@@ -28,11 +28,11 @@ func TestAPI_GetQuestions(t *testing.T) {
 }
 
 func TestPrettyPrint(t *testing.T) {
-	got := PrettyPrint(sample_questions)
+	got := PrettyPrint(sample_question)
 	assert.Equal(t, test_2_expected, got)
 }
 
-var sample_questions = []*Question{
+var sample_question = []*Question{
 	{
 		Category:      "Entertainment: Music",
 		Type:          "multiple",
@@ -47,7 +47,7 @@ var sample_questions = []*Question{
 	},
 }
 
-var sample_Response = `
+var sample_response = `
 {
 	"response_code": 0,
 	"results": [
@@ -66,7 +66,7 @@ var sample_Response = `
 	]
 }`
 
-var test_1_expected = sample_questions
+var test_1_expected = sample_question
 
 var test_2_expected = `[
     {

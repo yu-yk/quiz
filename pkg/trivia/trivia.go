@@ -33,7 +33,7 @@ type Options struct {
 
 var DefaultOption = Options{
 	Amount: 1,
-	Type:   "multiple",
+	Type:   "",
 }
 
 type API struct {
