@@ -3,6 +3,7 @@ package trivia
 import (
 	"context"
 	"encoding/json"
+	"html"
 	"net/http"
 	"strconv"
 
@@ -72,6 +73,15 @@ func (api *API) GetQuestions(ctx context.Context) ([]*Question, error) {
 	var r Response
 	if err := json.NewDecoder(resp.Body).Decode(&r); err != nil {
 		return nil, errors.WithStack(err)
+	}
+
+	// Unescape the encoded string
+	for i, q := range r.Results {
+		r.Results[i].Question = html.UnescapeString(q.Question)
+		r.Results[i].CorrectAnswer = html.UnescapeString(q.CorrectAnswer)
+		for j, a := range q.IncorrectAnswers {
+			r.Results[i].IncorrectAnswers[j] = html.UnescapeString(a)
+		}
 	}
 
 	return r.Results, nil
